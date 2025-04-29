@@ -52,40 +52,73 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List New Property'),
+        title: const Text('List New Property',
+            style: TextStyle(fontWeight: FontWeight.w600)),
         centerTitle: true,
         elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
+      backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Progress Indicator
-              const LinearProgressIndicator(
-                value: 0.33,
-                backgroundColor: Colors.grey,
-                color: Colors.blue,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: LinearProgressIndicator(
+                  value: 0.33,
+                  backgroundColor: Colors.grey[200],
+                  color: Colors.blueAccent,
+                  minHeight: 8,
+                ),
+              ),
+              const SizedBox(height: 25),
+              Text(
+                'Property Details',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[800],
+                ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Property Details',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
 
               // Property Title
               TextFormField(
                 controller: _titleController,
                 decoration: InputDecoration(
                   labelText: 'Property Title',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  floatingLabelStyle: TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w500,
+                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                        color: Colors.blueAccent, width: 1.5),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[100],
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 14),
+                ),
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 15,
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -94,18 +127,40 @@ class _MainScreenState extends State<MainScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
               // Property Type
               DropdownButtonFormField<String>(
                 value: _propertyType,
                 decoration: InputDecoration(
                   labelText: 'Property Type',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  floatingLabelStyle: TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w500,
+                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                        color: Colors.blueAccent, width: 1.5),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[100],
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 14),
+                ),
+                dropdownColor: Colors.white,
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 15,
                 ),
                 items: _propertyTypes.map((String value) {
                   return DropdownMenuItem<String>(
@@ -119,7 +174,7 @@ class _MainScreenState extends State<MainScreen> {
                   });
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
               // Description
               TextFormField(
@@ -127,14 +182,36 @@ class _MainScreenState extends State<MainScreen> {
                 maxLines: 4,
                 decoration: InputDecoration(
                   labelText: 'Description',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  floatingLabelStyle: TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  alignLabelWithHint: true,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                        color: Colors.blueAccent, width: 1.5),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[100],
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 12),
+                ),
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 15,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
               // Price
               TextFormField(
@@ -142,15 +219,40 @@ class _MainScreenState extends State<MainScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Price',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  floatingLabelStyle: TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w500,
+                  ),
                   prefixText: '\$ ',
+                  prefixStyle: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 15,
+                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                        color: Colors.blueAccent, width: 1.5),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[100],
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 14),
+                ),
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 15,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
               // Bedrooms & Bathrooms
               Row(
@@ -160,11 +262,33 @@ class _MainScreenState extends State<MainScreen> {
                       value: _bedrooms,
                       decoration: InputDecoration(
                         labelText: 'Bedrooms',
+                        labelStyle: TextStyle(color: Colors.grey[600]),
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w500,
+                        ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.blueAccent, width: 1.5),
                         ),
                         filled: true,
-                        fillColor: Colors.grey[100],
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                      ),
+                      dropdownColor: Colors.white,
+                      style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 15,
                       ),
                       items: List.generate(10, (index) => index + 1)
                           .map((int value) {
@@ -186,11 +310,33 @@ class _MainScreenState extends State<MainScreen> {
                       value: _bathrooms,
                       decoration: InputDecoration(
                         labelText: 'Bathrooms',
+                        labelStyle: TextStyle(color: Colors.grey[600]),
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w500,
+                        ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: Colors.blueAccent, width: 1.5),
                         ),
                         filled: true,
-                        fillColor: Colors.grey[100],
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                      ),
+                      dropdownColor: Colors.white,
+                      style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 15,
                       ),
                       items: List.generate(10, (index) => index + 1)
                           .map((int value) {
@@ -208,82 +354,140 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
               // Location
               TextFormField(
                 controller: _locationController,
                 decoration: InputDecoration(
                   labelText: 'Location',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  floatingLabelStyle: TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w500,
+                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(
+                        color: Colors.blueAccent, width: 1.5),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[100],
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.map),
-                    onPressed: () {
-                      // Open map for location selection
-                    },
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 14),
+                  suffixIcon: Container(
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.map_outlined,
+                          color: Colors.blueAccent),
+                      onPressed: () {
+                        // Open map for location selection
+                      },
+                    ),
                   ),
                 ),
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 15,
+                ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
 
               // Images Section
-              const Text(
+              Text(
                 'Property Images',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[800],
+                ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Minimum 5 photos recommended',
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 13,
+                ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 15),
               GestureDetector(
                 onTap: _pickImages,
                 child: Container(
-                  height: 120,
+                  height: 140,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Colors.grey[300]!,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.add_a_photo, size: 40, color: Colors.grey),
-                      Text('Add Photos', style: TextStyle(color: Colors.grey)),
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.add_a_photo,
+                          size: 32,
+                          color: Colors.blueAccent,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Add Photos',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 15),
 
               // Image Previews
               if (_images.isNotEmpty)
                 SizedBox(
-                  height: 100,
+                  height: 110,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: _images.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
+                        padding: const EdgeInsets.only(right: 12.0),
                         child: Stack(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(10),
                               child: Image.network(
                                 _images[index].path,
-                                width: 100,
-                                height: 100,
+                                width: 110,
+                                height: 110,
                                 fit: BoxFit.cover,
                               ),
                             ),
                             Positioned(
-                              top: 5,
-                              right: 5,
+                              top: 6,
+                              right: 6,
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -291,14 +495,15 @@ class _MainScreenState extends State<MainScreen> {
                                   });
                                 },
                                 child: Container(
-                                  decoration: const BoxDecoration(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.black54,
+                                    color: Colors.black.withOpacity(0.6),
                                   ),
                                   child: const Icon(
                                     Icons.close,
                                     color: Colors.white,
-                                    size: 18,
+                                    size: 16,
                                   ),
                                 ),
                               ),
@@ -309,42 +514,102 @@ class _MainScreenState extends State<MainScreen> {
                     },
                   ),
                 ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
 
               // Features Section
-              const Text(
+              Text(
                 'Features',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[800],
+                ),
               ),
-              const SizedBox(height: 12),
-              SwitchListTile(
-                title: const Text('Furnished'),
-                value: _isFurnished,
-                onChanged: (bool value) {
-                  setState(() {
-                    _isFurnished = value;
-                  });
-                },
+              const SizedBox(height: 15),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    SwitchListTile(
+                      title: Text('Furnished',
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w500)),
+                      value: _isFurnished,
+                      activeColor: Colors.blueAccent,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _isFurnished = value;
+                        });
+                      },
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12)),
+                      ),
+                    ),
+                    Divider(height: 1, color: Colors.grey[200]),
+                    SwitchListTile(
+                      title: Text('Parking Available',
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w500)),
+                      value: _hasParking,
+                      activeColor: Colors.blueAccent,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _hasParking = value;
+                        });
+                      },
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(12)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              SwitchListTile(
-                title: const Text('Parking Available'),
-                value: _hasParking,
-                onChanged: (bool value) {
-                  setState(() {
-                    _hasParking = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 20),
 
               // Amenities
-              const Text('Amenities', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('Amenities',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey[800])),
+              const SizedBox(height: 12),
               Wrap(
-                spacing: 8,
+                spacing: 10,
+                runSpacing: 10,
                 children: _amenityOptions.map((amenity) {
                   return FilterChip(
                     label: Text(amenity),
+                    labelStyle: TextStyle(
+                      color: _amenities.contains(amenity)
+                          ? Colors.white
+                          : Colors.grey[800],
+                      fontWeight: FontWeight.w500,
+                    ),
                     selected: _amenities.contains(amenity),
+                    selectedColor: Colors.blueAccent,
+                    backgroundColor: Colors.grey[100],
+                    checkmarkColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(
+                        color: Colors.grey[300]!,
+                        width: 1,
+                      ),
+                    ),
                     onSelected: (bool selected) {
                       setState(() {
                         if (selected) {
@@ -357,7 +622,7 @@ class _MainScreenState extends State<MainScreen> {
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
 
               // Form Actions
               Row(
@@ -370,10 +635,20 @@ class _MainScreenState extends State<MainScreen> {
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        side: BorderSide(
+                          color: Colors.blueAccent,
+                          width: 1.5,
                         ),
                       ),
-                      child: const Text('SAVE AS DRAFT'),
+                      child: Text(
+                        'SAVE AS DRAFT',
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -387,14 +662,23 @@ class _MainScreenState extends State<MainScreen> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        backgroundColor: Colors.blueAccent,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        'PUBLISH LISTING',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      child: const Text('PUBLISH LISTING'),
                     ),
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
