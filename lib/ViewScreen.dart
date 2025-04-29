@@ -12,7 +12,7 @@ class _ViewscreenState extends State<Viewscreen> {
   final List<Map<String, dynamic>> _properties = [
     {
       'title': 'Modern Apartment in Downtown',
-      'image': 'https://images.homes.com/listings/215/4317891514-889403291/140-rangeline-woods-cove-longwood-fl-primaryphoto.jpg',
+      'image': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
       'price': '\$450,000',
       'type': 'Apartment',
       'location': 'Downtown',
@@ -50,60 +50,104 @@ class _ViewscreenState extends State<Viewscreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text(
-          "All Properties",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-            fontSize: 24,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: Column(
-        children: [
-          // Search Bar
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Find Your Dream Home",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.black54,
               ),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search properties...',
-                  prefixIcon: const Icon(Icons.search, color: Colors.blue),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 20,
+            ),
+            Text(
+              "San Francisco, CA",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[600],
+              ),
+            ),
+          ],
+        ),
+        centerTitle: false,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.notifications_outlined),
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.favorite_border),
+            ),
+            onPressed: () {},
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(80),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              children: [
+                // Search Bar
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                      ),
+                    ],
                   ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.tune, color: Colors.blue),
-                    onPressed: () {
-                      // Open filters
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search properties...',
+                      prefixIcon: const Icon(Icons.search, color: Colors.blue),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 20,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.tune, color: Colors.blue),
+                        onPressed: () {
+                          // Open filters
+                        },
+                      ),
+                    ),
+                    onChanged: (value) {
+                      // Implement search functionality
+                      setState(() {});
                     },
                   ),
                 ),
-                onChanged: (value) {
-                  // Implement search functionality
-                  setState(() {});
-                },
-              ),
+                const SizedBox(height: 8),
+              ],
             ),
           ),
-
+        ),
+      ),
+      body: Column(
+        children: [
           // Filter Chips
           SizedBox(
             height: 50,
@@ -141,19 +185,22 @@ class _ViewscreenState extends State<Viewscreen> {
       padding: const EdgeInsets.only(right: 8.0),
       child: FilterChip(
         label: Text(label),
-        labelStyle: const TextStyle(
-          color: Colors.white,
+        labelStyle: TextStyle(
+          color: label == 'All' ? Colors.white : Colors.black87,
           fontWeight: FontWeight.w500,
         ),
-        selected: label == 'All', // You would manage this state properly
+        selected: label == 'All',
         selectedColor: Colors.blue,
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.grey[200],
         onSelected: (bool selected) {
-          // Handle filter selection
+          setState(() {
+            // Handle filter selection
+          });
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        showCheckmark: false,
       ),
     );
   }
