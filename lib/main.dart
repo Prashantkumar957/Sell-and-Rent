@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sellandrent/Lisitng.dart';
 import 'splash.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home:  SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

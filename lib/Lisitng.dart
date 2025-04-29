@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:sellandrent/ViewScreen.dart';
+import 'package:sellandrent/ViewScreen.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -51,13 +52,17 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
+
         title: const Text('List New Property',
-            style: TextStyle(fontWeight: FontWeight.w600)),
+            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white)),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         foregroundColor: Colors.black,
+
+
       ),
       backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
@@ -655,6 +660,7 @@ class _MainScreenState extends State<MainScreen> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Viewscreen()));
                         if (_formKey.currentState!.validate()) {
                           // Submit form
                         }
