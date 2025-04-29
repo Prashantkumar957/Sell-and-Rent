@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'profile.dart';
 class Viewscreen extends StatefulWidget {
   const Viewscreen({super.key});
 
@@ -13,7 +13,7 @@ class _ViewscreenState extends State<Viewscreen> {
     {
       'title': 'Modern Apartment in Downtown',
       'image': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
-      'price': '\$450,000',
+      'price': '\₹450,000',
       'type': 'Apartment',
       'location': 'Downtown',
       'bedrooms': 3,
@@ -24,7 +24,7 @@ class _ViewscreenState extends State<Viewscreen> {
     {
       'title': 'Luxury Villa with Ocean View',
       'image': 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
-      'price': '\$1,200,000',
+      'price': '\₹1,200,000',
       'type': 'Villa',
       'location': 'Beachfront',
       'bedrooms': 5,
@@ -35,7 +35,7 @@ class _ViewscreenState extends State<Viewscreen> {
     {
       'title': 'Cozy Studio in City Center',
       'image': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
-      'price': '\$220,000',
+      'price': '\₹220,000',
       'type': 'Studio',
       'location': 'City Center',
       'bedrooms': 1,
@@ -44,6 +44,8 @@ class _ViewscreenState extends State<Viewscreen> {
       'rating': 4.5,
     },
   ];
+
+  int _currentIndex = 0; // Track the current selected index
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +176,55 @@ class _ViewscreenState extends State<Viewscreen> {
                 return _buildPropertyCard(property);
               },
             ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          if (index == 4) {
+            // Index 4 corresponds to the 'Profile' item (0-based)
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AgentProfileScreen()),
+            );
+          } else {
+            // Handle navigation for other bottom navigation items if needed
+            // For example:
+            // if (index == 0) {
+            //   // Navigate to Home screen
+            // }
+            // ...
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            label: 'Saved',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
           ),
         ],
       ),
