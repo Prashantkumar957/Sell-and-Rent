@@ -37,16 +37,25 @@ class _QueriesOverviewScreenState extends State<QueriesOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Indian Property Queries'),
+        title: const Text('Indian Property Queries',style: TextStyle(color: Colors.white,),),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_alt),
+            icon: const Icon(Icons.filter_alt,color: Colors.white,),
             onPressed: () {
               // Open filter options
             },
           ),
         ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.indigo, Colors.blueAccent], // Gradient background
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [

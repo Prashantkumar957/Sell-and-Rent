@@ -23,31 +23,65 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        title: Text('My Profile', style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600)),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.grey[800]),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: [
-          IconButton(
-            icon: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: _isEditing ? Colors.blue[100] : Colors.grey[200],
-                shape: BoxShape.circle,
-              ),
-              child: Icon(_isEditing ? Icons.check : Icons.edit,
-                  color: _isEditing ? Colors.blue : Colors.grey[700], size: 20),
+        appBar: AppBar(
+          title: Text(
+            'My Profile',
+            style: TextStyle(
+              color: Colors.white, // Title color
+              fontWeight: FontWeight.w600, // Semi-bold styling
+              fontSize: 20,
+
+              // Adjusted for better visibility
             ),
-            onPressed: _toggleEditMode,
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
+          centerTitle: true, // Centers the title
+          elevation: 2, // Adds a subtle shadow for a more modern look
+          backgroundColor: Colors.transparent, // Transparent background for a sleek design
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white, // Back button color
+            ),
+            onPressed: () => Navigator.pop(context),
+            tooltip: 'Go Back', // Tooltip for better accessibility
+          ),
+          actions: [
+            IconButton(
+              icon: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _isEditing ? Colors.blue[100] : Colors.grey[200], // Conditional background color
+                  shape: BoxShape.circle, // Circular icon button for a smooth look
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0, 2),
+                      blurRadius: 6,
+                    ), // Adds a subtle shadow effect to the button
+                  ],
+                ),
+                child: Icon(
+                  _isEditing ? Icons.check : Icons.edit,
+                  color: _isEditing ? Colors.blue : Colors.grey[700], // Icon color based on editing mode
+                  size: 20, // Keeps the icon size consistent
+                ),
+              ),
+              onPressed: _toggleEditMode,
+              tooltip: _isEditing ? 'Save Changes' : 'Edit Profile', // Tooltip for better user experience
+            ),
+          ],
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.indigo, Colors.blueAccent], // Gradient background
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+        ),
+
+        body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
