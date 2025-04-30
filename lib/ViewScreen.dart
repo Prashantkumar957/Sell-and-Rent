@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
+import 'package:sellandrent/Quries.dart';
 class Viewscreen extends StatefulWidget {
   const Viewscreen({super.key});
 
@@ -11,11 +12,11 @@ class _ViewscreenState extends State<Viewscreen> {
   final TextEditingController _searchController = TextEditingController();
   final List<Map<String, dynamic>> _properties = [
     {
-      'title': 'Modern Apartment in Downtown',
+      'title': 'Modern Apartment in Chennai',
       'image': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
-      'price': '\₹450,000',
+      'price': '\₹40,50,000',
       'type': 'Apartment',
-      'location': 'Downtown',
+      'location': 'Chennai',
       'bedrooms': 3,
       'bathrooms': 2,
       'area': '1200 sq ft',
@@ -26,7 +27,7 @@ class _ViewscreenState extends State<Viewscreen> {
       'image': 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
       'price': '\₹1,200,000',
       'type': 'Villa',
-      'location': 'Beachfront',
+      'location': 'Mumbai',
       'bedrooms': 5,
       'bathrooms': 4,
       'area': '3200 sq ft',
@@ -37,7 +38,7 @@ class _ViewscreenState extends State<Viewscreen> {
       'image': 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
       'price': '\₹220,000',
       'type': 'Studio',
-      'location': 'City Center',
+      'location': 'Delhi',
       'bedrooms': 1,
       'bathrooms': 1,
       'area': '600 sq ft',
@@ -64,7 +65,7 @@ class _ViewscreenState extends State<Viewscreen> {
               ),
             ),
             Text(
-              "San Francisco, CA",
+              "New Delhi, India",
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -189,8 +190,16 @@ class _ViewscreenState extends State<Viewscreen> {
             // Index 4 corresponds to the 'Profile' item (0-based)
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AgentProfileScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const AgentProfileScreen()),
             );
+          }
+           else if (index == 3) {
+              // Index 4 corresponds to the 'Profile' item (0-based)
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QueriesOverviewScreen()),
+              );
           } else {
             // Handle navigation for other bottom navigation items if needed
             // For example:

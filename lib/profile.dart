@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AgentProfileScreen extends StatefulWidget {
   const AgentProfileScreen({super.key});
@@ -12,294 +11,309 @@ class _AgentProfileScreenState extends State<AgentProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isEditing = false;
 
-  // Agent profile data
-  String _name = "Prashant Kumar ";
-  String _email = "demo@gmail..com";
-  String _phone = "+9123-4567";
+  String _name = "Prashant Kumar";
+  String _email = "prashant@luxuryhomes.com";
+  String _phone = "+91 98765 43210";
   String _company = "Luxury Homes Realty";
-  String _license = "CA-12345678";
-  String _bio = "Specializing in luxury properties with 10+ years of experience in the Bay Area market.";
+  String _license = "RE/MAX-12345678";
+  String _bio = "Top-performing real estate agent specializing in luxury properties across Mumbai. 10+ years experience with 98% client satisfaction.";
   String _profileImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('My Profile'),
+        title: Text('My Profile', style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600)),
         centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.grey[800]),
+          onPressed: () => Navigator.pop(context),
+        ),
         actions: [
           IconButton(
-            icon: Icon(_isEditing ? Icons.check : Icons.edit),
-            onPressed: () {
-              if (_isEditing) {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Profile updated successfully')),
-                  );
-                }
-              }
-              setState(() {
-                _isEditing = !_isEditing;
-              });
-            },
+            icon: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: _isEditing ? Colors.blue[100] : Colors.grey[200],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(_isEditing ? Icons.check : Icons.edit,
+                  color: _isEditing ? Colors.blue : Colors.grey[700], size: 20),
+            ),
+            onPressed: _toggleEditMode,
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Profile Picture
-              Stack(
-                alignment: Alignment.bottomRight,
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            _buildProfileHeader(),
+            SizedBox(height: 20),
+            Form(
+              key: _formKey,
+              child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundImage: NetworkImage(_profileImage),
-                    backgroundColor: Colors.grey[200],
+                  _buildDetailCard(
+                    title: "Personal Information",
+                    children: [
+                      _buildEditableField(
+                        label: "Full Name",
+                        value: _name,
+                        icon: Icons.person_outline,
+                        isEditing: _isEditing,
+                        validator: (value) => value!.isEmpty ? 'Required' : null,
+                        onSaved: (value) => _name = value!,
+                      ),
+                      _buildEditableField(
+                        label: "Email",
+                        value: _email,
+                        icon: Icons.email_outlined,
+                        isEditing: _isEditing,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) => !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value!)
+                            ? 'Invalid email'
+                            : null,
+                        onSaved: (value) => _email = value!,
+                      ),
+                      _buildEditableField(
+                        label: "Phone",
+                        value: _phone,
+                        icon: Icons.phone_outlined,
+                        isEditing: _isEditing,
+                        keyboardType: TextInputType.phone,
+                        validator: (value) => value!.isEmpty ? 'Required' : null,
+                        onSaved: (value) => _phone = value!,
+                      ),
+                    ],
                   ),
-                  if (_isEditing)
-                    FloatingActionButton.small(
-                      onPressed: () => _changeProfilePicture(),
-                      child: const Icon(Icons.camera_alt),
-                      backgroundColor: Colors.blue,
-                    ),
+                  SizedBox(height: 16),
+                  _buildDetailCard(
+                    title: "Professional Information",
+                    children: [
+                      _buildEditableField(
+                        label: "Company",
+                        value: _company,
+                        icon: Icons.business_outlined,
+                        isEditing: _isEditing,
+                        onSaved: (value) => _company = value!,
+                      ),
+                      _buildEditableField(
+                        label: "License Number",
+                        value: _license,
+                        icon: Icons.verified_user_outlined,
+                        isEditing: _isEditing,
+                        onSaved: (value) => _license = value!,
+                      ),
+                      _buildEditableField(
+                        label: "Bio",
+                        value: _bio,
+                        icon: Icons.info_outline,
+                        isEditing: _isEditing,
+                        maxLines: 3,
+                        onSaved: (value) => _bio = value!,
+                      ),
+                    ],
+                  ),
                 ],
               ),
-              const SizedBox(height: 20),
+            ),
+            if (!_isEditing) _buildPerformanceSection(),
+          ],
+        ),
+      ),
+    );
+  }
 
-              // Name
-              TextFormField(
-                initialValue: _name,
-                decoration: InputDecoration(
-                  labelText: 'Full Name',
-                  prefixIcon: const Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: !_isEditing,
-                  fillColor: Colors.grey[100],
-                ),
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _isEditing ? Colors.black : Colors.grey[800],
-                ),
-                enabled: _isEditing,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _name = value!,
-              ),
-              const SizedBox(height: 16),
-
-              // Email
-              TextFormField(
-                initialValue: _email,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  prefixIcon: const Icon(Icons.email),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: !_isEditing,
-                  fillColor: Colors.grey[100],
-                ),
-                keyboardType: TextInputType.emailAddress,
-                enabled: _isEditing,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _isEditing ? Colors.black : Colors.grey[800],
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _email = value!,
-              ),
-              const SizedBox(height: 16),
-
-              // Phone
-              TextFormField(
-                initialValue: _phone,
-                decoration: InputDecoration(
-                  labelText: 'Phone Number',
-                  prefixIcon: const Icon(Icons.phone),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: !_isEditing,
-                  fillColor: Colors.grey[100],
-                ),
-                keyboardType: TextInputType.phone,
-                enabled: _isEditing,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _isEditing ? Colors.black : Colors.grey[800],
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your phone number';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _phone = value!,
-              ),
-              const SizedBox(height: 16),
-
-              // Company
-              TextFormField(
-                initialValue: _company,
-                decoration: InputDecoration(
-                  labelText: 'Company',
-                  prefixIcon: const Icon(Icons.business),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: !_isEditing,
-                  fillColor: Colors.grey[100],
-                ),
-                enabled: _isEditing,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _isEditing ? Colors.black : Colors.grey[800],
-                ),
-                onSaved: (value) => _company = value!,
-              ),
-              const SizedBox(height: 16),
-
-              // License
-              TextFormField(
-                initialValue: _license,
-                decoration: InputDecoration(
-                  labelText: 'License Number',
-                  prefixIcon: const Icon(Icons.verified_user),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: !_isEditing,
-                  fillColor: Colors.grey[100],
-                ),
-                enabled: _isEditing,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _isEditing ? Colors.black : Colors.grey[800],
-                ),
-                onSaved: (value) => _license = value!,
-              ),
-              const SizedBox(height: 16),
-
-              // Bio
-              TextFormField(
-                initialValue: _bio,
-                decoration: InputDecoration(
-                  labelText: 'Bio',
-                  alignLabelWithHint: true,
-                  prefixIcon: const Icon(Icons.info),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: !_isEditing,
-                  fillColor: Colors.grey[100],
-                ),
-                maxLines: 4,
-                enabled: _isEditing,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _isEditing ? Colors.black : Colors.grey[800],
-                ),
-                onSaved: (value) => _bio = value!,
-              ),
-              const SizedBox(height: 24),
-
-              // Stats Section
-              if (!_isEditing) ...[
-                const Text(
-                  'My Stats',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+  Widget _buildProfileHeader() {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.blue.withOpacity(0.2), width: 3),
+                    image: DecorationImage(image: NetworkImage(_profileImage), fit: BoxFit.cover),
                   ),
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildStatItem('24', 'Properties'),
-                    _buildStatItem('18', 'Clients'),
-                    _buildStatItem('4.9', 'Rating'),
-                  ],
-                ),
-              ],
-
-              // Change Password Button
-              if (!_isEditing) ...[
-                const SizedBox(height: 30),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    icon: const Icon(Icons.lock),
-                    label: const Text('Change Password'),
-                    onPressed: () {
-                      // Navigate to change password screen
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                if (_isEditing)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.camera_alt, size: 20, color: Colors.white),
+                      onPressed: _changeProfilePicture,
                     ),
                   ),
-                ),
               ],
-            ],
+            ),
+            SizedBox(height: 16),
+            Text(_name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.grey[800])),
+            SizedBox(height: 4),
+            Text(_company, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.star, color: Colors.amber, size: 18),
+                SizedBox(width: 4),
+                Text("4.9 (128 reviews)", style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEditableField({
+    required String label,
+    required String value,
+    required IconData icon,
+    required bool isEditing,
+    TextInputType? keyboardType,
+    String? Function(String?)? validator,
+    void Function(String?)? onSaved,
+    int maxLines = 1,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextFormField(
+        initialValue: value,
+        enabled: isEditing,
+        keyboardType: keyboardType,
+        maxLines: maxLines,
+        validator: validator,
+        onSaved: onSaved,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon, color: Colors.grey[600]),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey[300]!),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.blue, width: 1.5),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildStatItem(String value, String label) {
+  Widget _buildDetailCard({required String title, required List<Widget> children}) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey[700])),
+            SizedBox(height: 12),
+            ...children,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPerformanceSection() {
     return Column(
       children: [
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.blue,
-          ),
+        SizedBox(height: 24),
+        Text("Performance Overview",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey[800])),
+        SizedBox(height: 16),
+        GridView.count(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+          childAspectRatio: 1.4,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          children: [
+            _buildStatCard("24", "Properties", Icons.home_work_outlined),
+            _buildStatCard("18", "Active Clients", Icons.people_outline),
+            _buildStatCard("₹4.2Cr", "Total Value", Icons.currency_rupee_outlined),
+            _buildStatCard("4.9/5", "Rating", Icons.star_outline),
+          ],
         ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
+        SizedBox(height: 24),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+            onPressed: () {
+              // Add logic for changing password
+            },
+            style: OutlinedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              side: BorderSide(color: Colors.blue),
+            ),
+            child: Text("Change Password",
+                style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600)),
           ),
         ),
       ],
     );
   }
 
-  Future<void> _changeProfilePicture() async {
-    // Implement image picker functionality
-    // For example using image_picker package:
-    // final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    // if (pickedFile != null) {
-    //   setState(() {
-    //     _profileImage = pickedFile.path;
-    //   });
-    // }
+  Widget _buildStatCard(String value, String label, IconData icon) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey[200]!),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 28, color: Colors.blue),
+          SizedBox(height: 12),
+          Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[800])),
+          SizedBox(height: 4),
+          Text(label, style: TextStyle(color: Colors.grey[600])),
+        ],
+      ),
+    );
+  }
+
+  void _toggleEditMode() {
+    if (_isEditing) {
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        setState(() => _isEditing = false);
+      }
+    } else {
+      setState(() => _isEditing = true);
+    }
+  }
+
+  void _changeProfilePicture() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Change profile picture tapped")),
+    );
   }
 }
