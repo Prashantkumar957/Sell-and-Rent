@@ -13,9 +13,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   final List<Map<String, dynamic>> _favorites = [
     {
       'id': '1',
-      'title': 'Luxury Penthouse with Ocean View',
-      'price': 1200000,
-      'location': 'Miami Beach, FL',
+      'title': 'Luxury Penthouse with City View',
+      'price': 12000000,
+      'location': 'Marine Drive, Mumbai, MH',
       'image': 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2',
       'type': 'Apartment',
       'bedrooms': 3,
@@ -27,8 +27,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     {
       'id': '2',
       'title': 'Modern Villa in Gated Community',
-      'price': 950000,
-      'location': 'Boca Raton, FL',
+      'price': 9500000,
+      'location': 'Golf Course Road, Gurugram, HR',
       'image': 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
       'type': 'House',
       'bedrooms': 4,
@@ -39,9 +39,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     },
     {
       'id': '3',
-      'title': 'Downtown Commercial Space',
-      'price': 2500000,
-      'location': 'Downtown Miami, FL',
+      'title': 'Commercial Space in IT Hub',
+      'price': 25000000,
+      'location': 'HITEC City, Hyderabad, TG',
       'image': 'https://images.unsplash.com/photo-1493809842364-78817add7ffb',
       'type': 'Commercial',
       'bedrooms': 0,
@@ -63,18 +63,45 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Saved Properties'),
-        centerTitle: true,
-        elevation: 0,
+
+        title: const Text(
+          'Saved Properties',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+             color: Colors.white,// Adds bold styling to the title
+            fontSize: 20, // Increases font size for better visibility
+          ),
+        ),
+        centerTitle: true, // Centers the title
+        elevation: 5, // Adds a subtle shadow under the app bar
+        backgroundColor: Colors.indigo, // Custom background color
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () {
               // Implement search functionality
             },
+            tooltip: 'Search Properties', // Tooltip for accessibility
+          ),
+          IconButton(
+            icon: const Icon(Icons.filter_list, color: Colors.white),
+            onPressed: () {
+              // Implement filter functionality
+            },
+            tooltip: 'Filter Properties', // Tooltip for accessibility
           ),
         ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.indigo, Colors.blueAccent], // Gradient background
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
+
       body: Column(
         children: [
           // Filter Chips
@@ -140,7 +167,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       side: BorderSide(
         color: _currentFilter == value
             ? Theme.of(context).primaryColor
-            : Colors.grey[300],
+            : Colors.grey[300]!,
       ),
     );
   }
@@ -169,7 +196,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.network(
-                    property['image'],
+                    property['image'] ?? 'https://via.placeholder.com/400x300',
                     height: 180,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -185,6 +212,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 loadingProgress.expectedTotalBytes!
                                 : null,
                           ),
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 180,
+                        color: Colors.grey[200],
+                        child: const Center(
+                          child: Icon(Icons.broken_image, size: 50),
                         ),
                       );
                     },
@@ -242,10 +278,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${property['price'].toString().replaceAllMapped(
-                          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d)'),
+                        property['price'] != null
+                            ? '\₹${property['price'].toString().replaceAllMapped(
+                          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
                               (Match m) => '${m[1]},',
-                        )}',
+                        )}'
+                            : 'Price on Request',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -262,7 +300,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    property['title'],
+                    property['title'] ?? 'Untitled Property',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -278,7 +316,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        property['location'],
+                        property['location'] ?? 'Location not specified',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -394,7 +432,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            'assets/empty_state.svg', // You can add this SVG asset
+            'assets/empty_state.svg',
             height: 120,
             color: Colors.grey[300],
           ),

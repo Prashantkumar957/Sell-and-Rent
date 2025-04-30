@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
+import 'favorites_screen.dart';
 import 'package:sellandrent/Quries.dart';
 class Viewscreen extends StatefulWidget {
   const Viewscreen({super.key});
@@ -200,6 +201,12 @@ class _ViewscreenState extends State<Viewscreen> {
                 context,
                 MaterialPageRoute(builder: (context) => QueriesOverviewScreen()),
               );
+          }else if (index == 2) {
+            // Index 4 corresponds to the 'Profile' item (0-based)
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FavoritesScreen()),
+            );
           } else {
             // Handle navigation for other bottom navigation items if needed
             // For example:
