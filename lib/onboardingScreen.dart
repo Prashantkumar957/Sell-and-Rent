@@ -12,19 +12,19 @@ class _OnboardingPagerState extends State<OnboardingPager> {
   final List<Map<String, dynamic>> onboardingData = [
     {
       'title': 'List Properties Easily',
-      'description': 'Quickly add new listings with our streamlined property submission form. Showcase your properties with beautiful photos and detailed descriptions.',
+      'description': 'Quickly add new listings with our streamlined property submission form.',
       'image': 'assets/property_listing.jpg',
       'color': Color(0xFF4285F4), // Google blue
     },
     {
       'title': 'Manage Your Portfolio',
-      'description': 'Track all your listings in one place. Get instant notifications when potential buyers show interest in your properties.',
+      'description': 'Track all your listings in one place. ',
       'image': 'assets/property_management.png', // Replace with your asset
       'color': Color(0xFF34A853), // Google green
     },
     {
       'title': 'Connect with Clients',
-      'description': 'Communicate directly with potential buyers and schedule viewings through our integrated messaging system.',
+      'description': 'Communicate directly with potential buyers through our integrated messaging system.',
       'image': 'assets/client_connection.jpeg', // Replace with your asset
       'color': Color(0xFFEA4335), // Google red
     },
@@ -58,7 +58,7 @@ class _OnboardingPagerState extends State<OnboardingPager> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 32),
+                        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -73,37 +73,44 @@ class _OnboardingPagerState extends State<OnboardingPager> {
                             ),
                           ],
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              data['title'],
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: data['color'],
+                        child: SingleChildScrollView( // Add this
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                data['title'],
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: data['color'],
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              data['description'],
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[700],
-                                height: 1.5,
+                              SizedBox(height: 16),
+                              Text(
+                                data['description'],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey[700],
+                                  height: 1.5,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                              SizedBox(height: 16),
+
+                            ],
+                          ),
                         ),
                       ),
                     ),
+
                   ],
                 ),
               );
             },
           ),
+          SizedBox(height: 16),
+
           Positioned(
             bottom: 40,
             left: 0,
@@ -128,7 +135,7 @@ class _OnboardingPagerState extends State<OnboardingPager> {
                     ),
                   ),
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: 12),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: SizedBox(
@@ -153,12 +160,14 @@ class _OnboardingPagerState extends State<OnboardingPager> {
                         ),
                         elevation: 5,
                       ),
+
                       child: Text(
                         _currentPage < onboardingData.length - 1
                             ? 'Continue'
                             : 'Get Started',
                         style: TextStyle(
                           fontSize: 18,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

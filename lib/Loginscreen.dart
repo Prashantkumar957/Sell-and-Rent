@@ -29,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: Image.asset(
                   'assets/plogo.png',
-                  height: 100,
-                  width: 100,
+                  height: 180,
+                  width: 180,
                 ),
               ),
               const SizedBox(height: 32),
@@ -189,26 +189,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 32),
                     const Center(child: Text('Or sign in with')),
                     const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      spacing: 16,
+                      alignment: WrapAlignment.center,
                       children: [
                         IconButton(
-                          icon: Image.asset('assets/google_icon.png'),
-                          iconSize: 48,
-                          onPressed: () {
-                            // Google sign in
-                          },
+                          icon: Image.asset('assets/google_icon.png', width: 32, height: 32),
+                          onPressed: () {},
                         ),
-                        const SizedBox(width: 16),
                         IconButton(
-                          icon: Image.asset('assets/facebook_icon.png'),
-                          iconSize: 48,
-                          onPressed: () {
-                            // Facebook sign in
-                          },
+                          icon: Image.asset('assets/facebook_icon.png', width: 32, height: 32),
+                          onPressed: () {},
                         ),
                       ],
                     ),
+
                   ],
                 ),
               ),

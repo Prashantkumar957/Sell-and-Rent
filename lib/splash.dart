@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToMain() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 4));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => OnboardingPager()),
