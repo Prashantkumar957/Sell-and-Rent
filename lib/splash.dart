@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sellandrent/Lisitng.dart';
+import 'package:sellandrent/onboardingScreen.dart';
 import 'main.dart';
 import 'package:sellandrent/splash.dart';
 
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => MainScreen()),
+      MaterialPageRoute(builder: (context) => OnboardingPager()),
     );
   }
 

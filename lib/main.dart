@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sellandrent/Lisitng.dart';
 import 'splash.dart';
-
+import 'package:sellandrent/Loginscreen.dart';
+import 'package:sellandrent/Signup.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -12,6 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignupScreen(),
+        // Add other routes
+      },
       title: 'Property Agent Pro',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

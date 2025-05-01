@@ -13,7 +13,7 @@ class _OnboardingPagerState extends State<OnboardingPager> {
     {
       'title': 'List Properties Easily',
       'description': 'Quickly add new listings with our streamlined property submission form. Showcase your properties with beautiful photos and detailed descriptions.',
-      'image': 'assets/property_listing.png', // Replace with your asset
+      'image': 'assets/property_listing.jpg',
       'color': Color(0xFF4285F4), // Google blue
     },
     {
@@ -25,7 +25,7 @@ class _OnboardingPagerState extends State<OnboardingPager> {
     {
       'title': 'Connect with Clients',
       'description': 'Communicate directly with potential buyers and schedule viewings through our integrated messaging system.',
-      'image': 'assets/client_connection.png', // Replace with your asset
+      'image': 'assets/client_connection.jpeg', // Replace with your asset
       'color': Color(0xFFEA4335), // Google red
     },
   ];
@@ -147,7 +147,7 @@ class _OnboardingPagerState extends State<OnboardingPager> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: onboardingData[_currentPage]['color'],
+                        backgroundColor: onboardingData[_currentPage]['color'],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(28),
                         ),
