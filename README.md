@@ -1,4 +1,5 @@
-![Screenshot 2025-04-30 203454](https://github.com/user-attachments/assets/5c0ea97e-f2f0-4c31-839a-4f44b4f2a08c)
+![Screenshot 2025-04-30 203538](https://github.com/user-attachments/assets/9d4797da-dd6c-40f6-89ba-9a0d8695254d)
+
 🏠 Sell & Rent Property App
 The Sell & Rent Property App is a mobile application that allows users to list, buy, rent, or lease properties with ease. It connects property owners, agents, and potential buyers/tenants on a single platform, providing a seamless real estate experience.
 
